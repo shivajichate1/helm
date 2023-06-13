@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-service
+  template:
+    metadata:
+      labels:
+        app: post-service
+    spec:
+      containers:
+        - name: post-service
+          image: 699702042074.dkr.ecr.us-east-1.amazonaws.com/dev-post-service:latest
+          ports:
+            - containerPort: 8001
+      restartPolicy: Always

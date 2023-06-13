@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: session-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: session-service
+  template:
+    metadata:
+      labels:
+        app: session-service
+    spec:
+      containers:
+        - name: session-service
+          image: 699702042074.dkr.ecr.us-east-1.amazonaws.com/dev-session-service:latest
+          ports:
+            - containerPort: 8003
+      restartPolicy: Always

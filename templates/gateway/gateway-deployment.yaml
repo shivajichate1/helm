@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+        - name: gateway
+          image: 699702042074.dkr.ecr.us-east-1.amazonaws.com/dev-gateway:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PORT
+              value: '8000'
+            - name: gateway
+              value: post_service
+            - name: NODE_ENV
+              value: development
+            - name: PROFILE_SERVICE_URL
+              value: 'http://profile-service:8002'
+            - name: POST_SERVICE_URL
+              value: 'http://post-service:8001'
+            - name: SESSION_SERVICE_URL
+              value: 'http://session-service:8003' 
+            - name: API_KEY
+              value: '3Ti6aBD9I5PW7Add73Ua4COk4G37yBGLg1q7cqb0tIUsq7oMI2iLTPQGoO6rriDTRSGHs14QSsO0IxkK'  
+      restartPolicy: Always
